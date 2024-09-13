@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwl2maqh06glq"]
+[gd_scene load_steps=6 format=3 uid="uid://dwl2maqh06glq"]
 
 [ext_resource type="Script" path="res://Unit.gd" id="1_5vuhx"]
-[ext_resource type="Texture2D" uid="uid://b841cuy2nrq6f" path="res://Assets/munkey1.png" id="2_h37fl"]
+[ext_resource type="Texture2D" uid="uid://bvqufju215rb7" path="res://Assets/spriteguy.png" id="2_u58d5"]
+[ext_resource type="Script" path="res://Munkey1.gd" id="3_qu3j4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coabd"]
+size = Vector2(60, 60)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w4ii6"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+bg_color = Color(0.14349, 0.312274, 0.323474, 0.27451)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -19,17 +21,18 @@ script = ExtResource("1_5vuhx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_coabd")
 
-[node name="Munkey1" type="Sprite2D" parent="."]
-texture = ExtResource("2_h37fl")
-hframes = 3
-vframes = 3
-frame = 6
-
 [node name="Box" type="Panel" parent="."]
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = -12.0
+offset_bottom = -12.0
+scale = Vector2(3.2, 3.2)
 theme_override_styles/panel = SubResource("StyleBoxFlat_w4ii6")
+metadata/_edit_use_anchors_ = true
+
+[node name="Munkey1" type="Sprite2D" parent="."]
+position = Vector2(-3, -2)
+texture = ExtResource("2_u58d5")
+script = ExtResource("3_qu3j4")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

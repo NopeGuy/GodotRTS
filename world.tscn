@@ -22,7 +22,6 @@ position = Vector2(10, 10)
 script = ExtResource("1_lau4q")
 
 [node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
 limit_left = 0
 limit_top = 0
 script = ExtResource("2_vv32w")
@@ -43,10 +42,13 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(51, 31)
 
 [node name="Unit2" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
-position = Vector2(209, 22)
-
-[node name="Unit3" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
-position = Vector2(133, 68)
+position = Vector2(658, 88)
 
 [node name="Unit4" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
-position = Vector2(203, 72)
+position = Vector2(208, 350)
+
+[node name="Unit5" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
+position = Vector2(580, 252)
+
+[node name="Unit3" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
+position = Vector2(1054, 432)
