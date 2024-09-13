@@ -41,12 +41,3 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Unit" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
 position = Vector2(51, 31)
-
-[node name="Unit2" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
-position = Vector2(209, 22)
-
-[node name="Unit3" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
-position = Vector2(133, 68)
-
-[node name="Unit4" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
-position = Vector2(203, 72)
