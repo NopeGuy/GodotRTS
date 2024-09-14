@@ -1,0 +1,261 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxblcup07ropb"]
+
+[ext_resource type="Texture2D" uid="uid://c3yt6y2ig2vni" path="res://Assets/blockDarkGrassOutline.png" id="1_wt30a"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="BlockDarkGrassOutline2" type="Sprite2D" parent="."]
+position = Vector2(0, -203)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline1" type="Sprite2D" parent="."]
+position = Vector2(-55, -174)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline3" type="Sprite2D" parent="."]
+position = Vector2(-110, -145)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline4" type="Sprite2D" parent="."]
+position = Vector2(55, -174)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline5" type="Sprite2D" parent="."]
+position = Vector2(0, -145)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline6" type="Sprite2D" parent="."]
+position = Vector2(-55, -116)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline7" type="Sprite2D" parent="."]
+position = Vector2(110, -145)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline8" type="Sprite2D" parent="."]
+position = Vector2(55, -116)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline9" type="Sprite2D" parent="."]
+position = Vector2(0, -87)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline10" type="Sprite2D" parent="."]
+position = Vector2(165, -116)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline11" type="Sprite2D" parent="."]
+position = Vector2(110, -87)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline12" type="Sprite2D" parent="."]
+position = Vector2(55, -58)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline13" type="Sprite2D" parent="."]
+position = Vector2(-165, -116)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline14" type="Sprite2D" parent="."]
+position = Vector2(-110, -87)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline15" type="Sprite2D" parent="."]
+position = Vector2(-55, -58)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline16" type="Sprite2D" parent="."]
+position = Vector2(0, -29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline17" type="Sprite2D" parent="."]
+position = Vector2(220, -87)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline18" type="Sprite2D" parent="."]
+position = Vector2(165, -58)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline19" type="Sprite2D" parent="."]
+position = Vector2(110, -29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline20" type="Sprite2D" parent="."]
+position = Vector2(275, -58)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline21" type="Sprite2D" parent="."]
+position = Vector2(220, -29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline22" type="Sprite2D" parent="."]
+position = Vector2(165, 0)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline23" type="Sprite2D" parent="."]
+position = Vector2(330, -29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline24" type="Sprite2D" parent="."]
+position = Vector2(275, 0)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline25" type="Sprite2D" parent="."]
+position = Vector2(220, 29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline26" type="Sprite2D" parent="."]
+position = Vector2(385, 0)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline27" type="Sprite2D" parent="."]
+position = Vector2(330, 29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline28" type="Sprite2D" parent="."]
+position = Vector2(275, 58)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline29" type="Sprite2D" parent="."]
+position = Vector2(55, 0)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline30" type="Sprite2D" parent="."]
+position = Vector2(110, 29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline31" type="Sprite2D" parent="."]
+position = Vector2(165, 58)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline32" type="Sprite2D" parent="."]
+position = Vector2(220, 87)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline37" type="Sprite2D" parent="."]
+position = Vector2(-220, -87)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline38" type="Sprite2D" parent="."]
+position = Vector2(-275, -58)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline39" type="Sprite2D" parent="."]
+position = Vector2(-330, -29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline40" type="Sprite2D" parent="."]
+position = Vector2(-165, -58)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline41" type="Sprite2D" parent="."]
+position = Vector2(-220, -29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline42" type="Sprite2D" parent="."]
+position = Vector2(-275, 0)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline43" type="Sprite2D" parent="."]
+position = Vector2(-110, -29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline44" type="Sprite2D" parent="."]
+position = Vector2(-165, 0)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline45" type="Sprite2D" parent="."]
+position = Vector2(-220, 29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline46" type="Sprite2D" parent="."]
+position = Vector2(-55, 0)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline47" type="Sprite2D" parent="."]
+position = Vector2(-110, 29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline48" type="Sprite2D" parent="."]
+position = Vector2(-165, 58)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline49" type="Sprite2D" parent="."]
+position = Vector2(-385, 0)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline50" type="Sprite2D" parent="."]
+position = Vector2(-330, 29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline51" type="Sprite2D" parent="."]
+position = Vector2(-275, 58)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline52" type="Sprite2D" parent="."]
+position = Vector2(-220, 87)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline53" type="Sprite2D" parent="."]
+position = Vector2(0, 29)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline54" type="Sprite2D" parent="."]
+position = Vector2(-55, 58)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline55" type="Sprite2D" parent="."]
+position = Vector2(-110, 87)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline56" type="Sprite2D" parent="."]
+position = Vector2(55, 58)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline57" type="Sprite2D" parent="."]
+position = Vector2(0, 87)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline58" type="Sprite2D" parent="."]
+position = Vector2(-55, 116)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline59" type="Sprite2D" parent="."]
+position = Vector2(110, 87)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline60" type="Sprite2D" parent="."]
+position = Vector2(55, 116)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline61" type="Sprite2D" parent="."]
+position = Vector2(0, 145)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline62" type="Sprite2D" parent="."]
+position = Vector2(165, 116)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline63" type="Sprite2D" parent="."]
+position = Vector2(110, 145)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline64" type="Sprite2D" parent="."]
+position = Vector2(55, 174)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline65" type="Sprite2D" parent="."]
+position = Vector2(-165, 116)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline66" type="Sprite2D" parent="."]
+position = Vector2(-110, 145)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline67" type="Sprite2D" parent="."]
+position = Vector2(-55, 174)
+texture = ExtResource("1_wt30a")
+
+[node name="BlockDarkGrassOutline72" type="Sprite2D" parent="."]
+position = Vector2(0, 203)
+texture = ExtResource("1_wt30a")

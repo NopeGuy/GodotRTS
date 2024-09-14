@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://calvch5q2lb1a"]
+[gd_scene load_steps=6 format=3 uid="uid://calvch5q2lb1a"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_lau4q"]
+[ext_resource type="PackedScene" uid="uid://dxblcup07ropb" path="res://tilesetgrass.tscn" id="2_7xexd"]
 [ext_resource type="PackedScene" uid="uid://dwl2maqh06glq" path="res://unit.tscn" id="2_sbcue"]
 [ext_resource type="Script" path="res://UI/Camera.gd" id="2_vv32w"]
 
@@ -21,7 +22,11 @@ corner_radius_bottom_left = 8
 position = Vector2(10, 10)
 script = ExtResource("1_lau4q")
 
+[node name="Tileset" parent="." instance=ExtResource("2_7xexd")]
+position = Vector2(571, 319)
+
 [node name="Camera" type="Camera2D" parent="."]
+position = Vector2(-9, -10)
 limit_left = 0
 limit_top = 0
 script = ExtResource("2_vv32w")
@@ -37,18 +42,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_8bwln")
 metadata/_edit_use_anchors_ = true
 
 [node name="Units" type="Node2D" parent="."]
+position = Vector2(-10, -10)
 
 [node name="Unit" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
-position = Vector2(51, 31)
-
-[node name="Unit2" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
-position = Vector2(658, 88)
-
-[node name="Unit4" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
-position = Vector2(208, 350)
-
-[node name="Unit5" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
-position = Vector2(580, 252)
-
-[node name="Unit3" parent="Units" groups=["units"] instance=ExtResource("2_sbcue")]
-position = Vector2(1054, 432)
+position = Vector2(472, 292)

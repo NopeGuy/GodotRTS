@@ -16,6 +16,7 @@ border_width_bottom = 1
 border_color = Color(0.165913, 0.230223, 0.412427, 1)
 
 [node name="Unit" type="CharacterBody2D"]
+position = Vector2(0, -32)
 script = ExtResource("1_5vuhx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
