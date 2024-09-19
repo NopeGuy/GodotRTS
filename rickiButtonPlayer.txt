@@ -1,0 +1,53 @@
+extends TileMap
+
+var GridSize = 1000
+var Dic = {}
+var selectedTile = Vector2()
+
+func _ready():
+	for x in range(GridSize):
+		for y in range(GridSize):
+			Dic[str(Vector2(x, y))] = {
+				"Type" : "Grass", # Set type as needed ("Grass", "Water", etc.)
+				"Walkable": true,  # Add a walkable property
+				"Position" : Vector2(x, y)
+			}
+			set_cell(1, Vector2i(x, y), 0, Vector2i(7, 3), 0) # Set initial tile on layer 0
+			_create_button(map_to_local(Vector2i(x, y)))
+
+func test(pos):
+	selectedTile = pos
+	
+
+func test1(pos):
+	set_cell(0, pos, 1, Vector2i(0, 0), 0) # Draw the new tile on layer 1
+	
+	
+func test2(pos):
+	erase_cell(0, pos) # Ensure we use Vector2i for integer values
+
+func _create_button(pos):
+	var button = Button.new()
+	button.position = pos
+	button.z_index += 1
+	button.position.y -= 10
+	button.scale.x *= 2.2
+	button.scale.y *= 1.6
+	button.rotation = deg_to_rad(45)
+	#button.flat = true
+	button.focus_mode = false
+	add_child(button)
+	button.button_down.connect(test.bind(local_to_map(pos)))
+	button.mouse_entered.connect(test1.bind(local_to_map(pos)))
+	button.mouse_exited.connect(test2.bind(local_to_map(pos)))
+
+# Return the selected tile position
+func get_selected_tile():
+	return selectedTile
+
+# Check if the tile is walkable
+func is_tile_walkable(tile_pos):
+	var tile_key = str(tile_pos)
+	if Dic.has(tile_key):
+		return Dic[tile_key]["Walkable"] # Return if the tile is walkable
+	return false

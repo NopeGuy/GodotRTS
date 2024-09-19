@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bs18qj1lxa5wo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhao7"]
+bg_color = Color(0.129668, 0.296504, 0.397606, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[node name="TurnCounter" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 19.0
+offset_top = 4.0
+offset_right = 87.0
+offset_bottom = 27.0
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 106.0
+offset_bottom = 30.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rhao7")
