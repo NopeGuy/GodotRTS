@@ -48,7 +48,10 @@ func _ready():
 					"Walkable": false,  # Statues are not walkable
 					"Position": Vector2(x, y)
 				}
-				set_cell(2, Vector2i(x, y), 0, Vector2i(6, 6), 0)
+				# Stone
+				set_cell(0, Vector2i(x, y), 0, Vector2i(3, 6), 0)
+				# Statue
+				set_cell(3, Vector2i(x, y), 0, Vector2i(10, 8), 0)
 			# Rest of the grid: Fill with grass
 			else:
 				Dic[str(Vector2(x, y))] = {
@@ -64,6 +67,14 @@ func _ready():
 						"Position": Vector2(x, y)
 					}
 					set_cell(3, Vector2i(x, y), 2, Vector2i(4, 4), 0)
+					
+				if (x == 5 and y == 8):
+					Dic[str(Vector2(x, y))] = {
+						"Type": "Block",
+						"Walkable": false,  # Statues are not walkable
+						"Position": Vector2(x, y)
+					}
+					set_cell(3, Vector2i(x, y), 4, Vector2i(0, 0), 0)
 
 
 func _process(delta):
@@ -74,7 +85,7 @@ func _process(delta):
 	selectedTile = tile
 	# Set the new tile only if it's within the dictionary
 	if Dic.has(str(tile)):
-		set_cell(1, tile, 1, Vector2i(0, 0), 0)
+		set_cell(1, tile, 3, Vector2i(0, 0), 0)
 #		print(Dic[str(tile)])
 
 # Return the selected tile position

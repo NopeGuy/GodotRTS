@@ -3,6 +3,7 @@ extends Node
 var players = [] # List of playable characters
 var active_player = null # Reference to the current active player
 var time_passed: float = 0
+@onready var turn_counter = get_node("/root/Main/TurnCounter")
 
 # Use @onready to delay initialization until the scene is ready
 
@@ -33,12 +34,18 @@ func switch_to_next_player():
 	active_player = players[current_index]
 	time_passed = 0
 	update_camera()
+	turn_counter.update_turn()
 
 # Ensure the global camera follows the current active player
 func update_camera():
 	var tile_map = get_node("/root/Main/tile_map")
 	var background = tile_map.get_node("background")  # Access the "background" child node
-	var camera = get_node("/root/Main/Camera2D") # Assuming there's a global Camera2D node
-	camera.position = active_player.global_position # Update camera position
+	var camera = get_node("/root/Main/Camera2D")
+	
+	# Update camera position
+	camera.position = active_player.global_position
+	turn_counter.position = active_player.global_position  # Update TurnCounter position to match player
 	background.position = camera.position
 	
+	# Make the TurnCounter visible again after updating the camera
+	turn_counter.visible = true
