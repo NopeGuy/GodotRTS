@@ -1,14 +1,19 @@
 extends CharacterBody2D
 
-var Movement: int
+var Movement: int = 10  # Max movement range
 var Abilities = [] # or a dictionary, depending on your needs
-var StartPosition:Vector2i
+var StartPosition: Vector2i
 var tile_map
+
+var speed: float = 150.0  # Movement speed
+var target_position: Vector2 = Vector2()  # Target position for movement
+var is_moving: bool = false  # Track whether the character is moving
 
 func _ready():
 	tile_map = get_node("../tile_map")
 	CharacterManager.update_camera()
-	global_position = tile_map.map_to_local(StartPosition) # Use Vector2 if needed
+	global_position = tile_map.map_to_local(StartPosition) # Start at the specified position
+	target_position = global_position # Set the initial target to current position
 	print(CharacterManager.active_player)
 
 func _physics_process(delta):
@@ -20,23 +25,39 @@ func _physics_process(delta):
 	if CharacterManager.active_player == self:
 		MoveMouse()
 
+	# If moving, smoothly move toward the target position
+	if is_moving:
+		move_toward_target(delta)
+
+func move_toward_target(delta):
+	# Move smoothly toward the target position
+	var current_tile = tile_map.local_to_map(global_position)
+	var target_tile = tile_map.local_to_map(target_position)
+
+	# Check if we have arrived at the target tile (using map coordinates)
+	if current_tile == target_tile:
+		# Snap to the target position and stop moving
+		global_position = target_position
+		is_moving = false
+		CharacterManager.switch_to_next_player()
+	else:
+		# Interpolate position towards the target
+		var direction = (target_position - global_position).normalized()
+		global_position += direction * speed * delta
+
 func MoveMouse():
-	if Input.is_action_just_pressed("LeftClick"):
+	if Input.is_action_just_pressed("LeftClick") and not is_moving:
 		if tile_map and tile_map.has_method("get_selected_tile"):
 			var selected_tile = Vector2i(tile_map.get_selected_tile())
 
-			# Check if the tile is walkable
-			Movement = 5
-			
-			# Convert the current global position back to tile map coordinates
-			var current_tile = tile_map.local_to_map(global_position)
-			print("Current Tile (Grid):", current_tile)
+			# Convert the selected tile to local space and check walkability
+			if tile_map.is_tile_walkable(selected_tile):
+				var clicked_tile_position = tile_map.map_to_local(selected_tile)
+				var current_tile = tile_map.local_to_map(global_position)
+				var distance_to_tile = abs(selected_tile.x - current_tile.x) + abs(selected_tile.y - current_tile.y)
 
-			# Calculate the distance from the current position to the clicked tile
-			var distance_to_tile = abs(selected_tile.x - current_tile.x) + abs(selected_tile.y - current_tile.y)
-			print("Distance to Tile:", distance_to_tile)
-
-			# Check if the tile is walkable and if the distance is within movement range
-			if tile_map.is_tile_walkable(selected_tile) and distance_to_tile <= Movement:
-				global_position = tile_map.map_to_local(selected_tile)  # Move to the clicked tile position
-				CharacterManager.switch_to_next_player()
+				# Check if the distance is within the allowed movement range
+				if distance_to_tile <= Movement:
+					# Set the target position and begin moving
+					target_position = clicked_tile_position
+					is_moving = true

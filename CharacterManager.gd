@@ -4,6 +4,8 @@ var players = [] # List of playable characters
 var active_player = null # Reference to the current active player
 var time_passed: float = 0
 
+# Use @onready to delay initialization until the scene is ready
+
 func _ready():
 	# Initialize the player list by adding the player nodes
 	players.append(get_node("/root/Main/Player1"))
@@ -34,5 +36,9 @@ func switch_to_next_player():
 
 # Ensure the global camera follows the current active player
 func update_camera():
+	var tile_map = get_node("/root/Main/tile_map")
+	var background = tile_map.get_node("background")  # Access the "background" child node
 	var camera = get_node("/root/Main/Camera2D") # Assuming there's a global Camera2D node
 	camera.position = active_player.global_position # Update camera position
+	background.position = camera.position
+	

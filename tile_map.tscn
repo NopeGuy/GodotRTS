@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bmc7k1jwmlt8n" path="res://Assets/tiles1/isometric tileset/spritesheet.png" id="1_1kqwk"]
 [ext_resource type="Texture2D" uid="uid://bsutaf3olr54v" path="res://Assets/tiles1/isometric tileset/selected.png" id="2_6vpde"]
 [ext_resource type="Script" path="res://tile_map.gd" id="2_kq4pw"]
-[ext_resource type="Texture2D" uid="uid://ckbic7k4po8ip" path="res://selected2.png" id="3_gioj1"]
+[ext_resource type="Texture2D" uid="uid://be687rtuuwtvn" path="res://Assets/tiles1/isometric tileset/tilemap.png" id="3_vnjn2"]
 [ext_resource type="Texture2D" uid="uid://cqk0os7ee0lmp" path="res://Assets/bg.png" id="6_8f1pq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tpboh"]
@@ -75,18 +75,6 @@ texture_region_size = Vector2i(32, 32)
 3:10/0 = 0
 4:10/0 = 0
 5:10/0 = 0
-0:11/0 = 0
-1:11/0 = 0
-2:11/0 = 0
-3:11/0 = 0
-4:11/0 = 0
-5:11/0 = 0
-0:12/0 = 0
-1:12/0 = 0
-2:12/0 = 0
-3:12/0 = 0
-4:12/0 = 0
-5:12/0 = 0
 6:8/0 = 0
 7:8/0 = 0
 8:8/0 = 0
@@ -146,14 +134,50 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ggx86"]
 texture = ExtResource("2_6vpde")
 texture_region_size = Vector2i(32, 32)
-0:1/0 = 0
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_67tjs"]
-texture = ExtResource("3_gioj1")
-texture_region_size = Vector2i(32, 32)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_skjc6"]
+texture = ExtResource("3_vnjn2")
+texture_region_size = Vector2i(32, 16)
 0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
 0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+3:4/0 = 0
+5:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+3:5/0 = 0
+5:5/0 = 0
+3:6/0 = 0
+5:6/0 = 0
+3:7/0 = 0
+5:7/0 = 0
+4:4/size_in_atlas = Vector2i(1, 4)
+4:4/0 = 0
+4:4/0/texture_origin = Vector2i(0, 13)
 
 [sub_resource type="TileSet" id="TileSet_xqly8"]
 tile_shape = 1
@@ -161,7 +185,7 @@ tile_layout = 5
 tile_size = Vector2i(32, 16)
 sources/0 = SubResource("TileSetAtlasSource_tpboh")
 sources/1 = SubResource("TileSetAtlasSource_ggx86")
-sources/2 = SubResource("TileSetAtlasSource_67tjs")
+sources/2 = SubResource("TileSetAtlasSource_skjc6")
 
 [node name="tile_map" type="TileMap"]
 y_sort_enabled = true
@@ -169,11 +193,18 @@ tile_set = SubResource("TileSet_xqly8")
 rendering_quadrant_size = 24
 format = 2
 layer_0/y_sort_enabled = true
+layer_1/name = "Layer1"
+layer_1/y_sort_enabled = true
+layer_2/name = "Layer2"
+layer_2/y_sort_enabled = true
+layer_3/name = "Layer3"
+layer_3/z_index = 1
 script = ExtResource("2_kq4pw")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="background" type="Sprite2D" parent="."]
+show_behind_parent = true
 z_index = -1
 y_sort_enabled = true
-position = Vector2(175, 194)
-scale = Vector2(2.144, 2.18737)
+position = Vector2(28, 64.9999)
+scale = Vector2(2.69, 3.30341)
 texture = ExtResource("6_8f1pq")

@@ -1,6 +1,6 @@
 extends TileMap
 
-var GridSize = 26
+var GridSize = 20
 var Dic = {}
 var selectedTile = Vector2i()
 
@@ -21,26 +21,17 @@ func _ready():
 					"Walkable": false,  # Water is not walkable
 					"Position": Vector2(x, y)
 				}
-				set_cell(1, Vector2i(x, y), 0, Vector2i(6, 8), 0)  # Set water tile on layer 1
+				set_cell(0, Vector2i(x, y), 0, Vector2i(6, 8), 0)  # Set water tile on layer 1
 			
 			# Semi-outer rim: Place statues every 2 blocks
 			elif is_semi_outer_rim:
-				# Ensure statues are placed every 2 blocks (either x or y is even)
-				if (x % 2 == 0 and y % 2 == 0):
-					Dic[str(Vector2(x, y))] = {
-						"Type": "Statue",
-						"Walkable": false,  # Statues are not walkable
-						"Position": Vector2(x, y)
-					}
-					set_cell(1, Vector2i(x, y), 0, Vector2i(6, 6), 0)  # Set statue tile on layer 1
-				else:
 					# Fill remaining with water if not placing statues
 					Dic[str(Vector2(x, y))] = {
 						"Type": "Water",
 						"Walkable": false,  # Water is not walkable
 						"Position": Vector2(x, y)
 					}
-					set_cell(1, Vector2i(x, y), 0, Vector2i(6, 8), 0)  # Set water tile on layer 1
+					set_cell(0, Vector2i(x, y), 0, Vector2i(6, 8), 0)
 			
 			# Inner rim: Fill with stone
 			elif is_inner_rim:
@@ -49,8 +40,15 @@ func _ready():
 					"Walkable": true,  # Stone is walkable
 					"Position": Vector2(x, y)
 				}
-				set_cell(1, Vector2i(x, y), 0, Vector2i(4, 6), 0)  # Set stone tile on layer 1
-			
+				set_cell(0, Vector2i(x, y), 0, Vector2i(4, 6), 0)
+		
+			elif (x == 7 and y == 7):
+				Dic[str(Vector2(x, y))] = {
+					"Type": "Statue",
+					"Walkable": false,  # Statues are not walkable
+					"Position": Vector2(x, y)
+				}
+				set_cell(2, Vector2i(x, y), 0, Vector2i(6, 6), 0)
 			# Rest of the grid: Fill with grass
 			else:
 				Dic[str(Vector2(x, y))] = {
@@ -58,18 +56,25 @@ func _ready():
 					"Walkable": true,  # Grass is walkable
 					"Position": Vector2(x, y)
 				}
-				set_cell(1, Vector2i(x, y), 0, Vector2i(7, 3), 0)  # Set grass tile on layer 1
+				set_cell(0, Vector2i(x, y), 0, Vector2i(7, 3), 0)
+				if ((x == 5 and y == 7) or (x == 9 and y == 4)):
+					Dic[str(Vector2(x, y))] = {
+						"Type": "Tree",
+						"Walkable": false,  # Statues are not walkable
+						"Position": Vector2(x, y)
+					}
+					set_cell(3, Vector2i(x, y), 2, Vector2i(4, 4), 0)
 
 
 func _process(delta):
 	var tile = local_to_map(get_global_mouse_position())
 	if selectedTile == tile:
 		return
-	erase_cell(0, selectedTile) # Ensure we use Vector2i for integer values
+	erase_cell(1, selectedTile)
 	selectedTile = tile
 	# Set the new tile only if it's within the dictionary
 	if Dic.has(str(tile)):
-		set_cell(0, tile, 1, Vector2i(0, 0), 0) # Draw the new tile on layer 1
+		set_cell(1, tile, 1, Vector2i(0, 0), 0)
 #		print(Dic[str(tile)])
 
 # Return the selected tile position

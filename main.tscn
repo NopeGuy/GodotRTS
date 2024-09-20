@@ -7,15 +7,11 @@
 
 [node name="tile_map" parent="." instance=ExtResource("2_6jude")]
 position = Vector2(0, 1)
-layer_1/name = "Layer1"
-layer_1/y_sort_enabled = true
 
 [node name="Player1" parent="." instance=ExtResource("3_fvwc0")]
-z_index = 1
 position = Vector2(0, -42)
 
 [node name="Player2" parent="." instance=ExtResource("3_fvwc0")]
-z_index = 1
 position = Vector2(46, -42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
