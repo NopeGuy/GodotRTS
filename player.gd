@@ -2,12 +2,13 @@ extends CharacterBody2D
 
 var Movement: int
 var Abilities = [] # or a dictionary, depending on your needs
+var StartPosition:Vector2i
 var tile_map
 
 func _ready():
 	tile_map = get_node("../tile_map")
 	CharacterManager.update_camera()
-	global_position = tile_map.map_to_local(Vector2i(5, 5)) # Use Vector2 if needed
+	global_position = tile_map.map_to_local(StartPosition) # Use Vector2 if needed
 	print(CharacterManager.active_player)
 
 func _physics_process(delta):
@@ -25,6 +26,17 @@ func MoveMouse():
 			var selected_tile = Vector2i(tile_map.get_selected_tile())
 
 			# Check if the tile is walkable
-			if tile_map.is_tile_walkable(selected_tile):
-				global_position = tile_map.map_to_local(selected_tile) # Convert tile to world position
+			Movement = 5
+			
+			# Convert the current global position back to tile map coordinates
+			var current_tile = tile_map.local_to_map(global_position)
+			print("Current Tile (Grid):", current_tile)
+
+			# Calculate the distance from the current position to the clicked tile
+			var distance_to_tile = abs(selected_tile.x - current_tile.x) + abs(selected_tile.y - current_tile.y)
+			print("Distance to Tile:", distance_to_tile)
+
+			# Check if the tile is walkable and if the distance is within movement range
+			if tile_map.is_tile_walkable(selected_tile) and distance_to_tile <= Movement:
+				global_position = tile_map.map_to_local(selected_tile)  # Move to the clicked tile position
 				CharacterManager.switch_to_next_player()
