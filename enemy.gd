@@ -19,6 +19,7 @@ func _ready():
 	global_position = tile_map.map_to_local(StartPosition) # Start at the specified position
 	target_position = global_position # Set the initial target to current position
 	current_position = StartPosition
+	$Sprite2D/AnimationPlayer.play("idle_bl")
 	print(CharacterManager.active_player)
 
 func _physics_process(delta):

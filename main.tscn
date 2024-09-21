@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bawfmcbgp1unx"]
+[gd_scene load_steps=5 format=3 uid="uid://bawfmcbgp1unx"]
 
 [ext_resource type="PackedScene" uid="uid://bs18qj1lxa5wo" path="res://turn_counter.tscn" id="1_2bk23"]
 [ext_resource type="PackedScene" uid="uid://bxf0wdb3o60ij" path="res://tile_map.tscn" id="2_6jude"]
+[ext_resource type="PackedScene" uid="uid://cbl4hovm7tmkb" path="res://enemy.tscn" id="2_ltdtu"]
 [ext_resource type="PackedScene" uid="uid://dhdc7l4hnafb0" path="res://player.tscn" id="3_fvwc0"]
 
 [node name="Main" type="Node2D"]
@@ -12,6 +13,8 @@ position = Vector2(0, -42)
 
 [node name="Player2" parent="." instance=ExtResource("3_fvwc0")]
 position = Vector2(46, -42)
+
+[node name="Enemy" parent="." instance=ExtResource("2_ltdtu")]
 
 [node name="tile_map" parent="." instance=ExtResource("2_6jude")]
 z_index = 1

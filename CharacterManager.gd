@@ -11,11 +11,16 @@ func _ready():
 	# Initialize the player list by adding the player nodes
 	players.append(get_node("/root/Main/Player1"))
 	players.append(get_node("/root/Main/Player2"))
+	players.append(get_node("/root/Main/Enemy"))
 	
 	# Assign unique start positions to each player
-	players[0].StartPosition = Vector2i(9, 5)  # Example: Player 1 starts at tile (0, 0)
-	players[1].StartPosition = Vector2i(5, 5)  # Example: Player 2 starts at tile (5, 5)
+	players[0].StartPosition = Vector2i(9, 5)
+	players[1].StartPosition = Vector2i(5, 5)
+	players[2].StartPosition = Vector2i(6, 5)
 
+	players[0].Movement = 5 
+	players[1].Movement = 6 
+	players[2].Movement = 4
 	# Debugging: Print the list of players to verify initialization
 	print(str(players))
 
