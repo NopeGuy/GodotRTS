@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxf0wdb3o60ij"]
+[gd_scene load_steps=16 format=3 uid="uid://bxf0wdb3o60ij"]
 
 [ext_resource type="Texture2D" uid="uid://bmc7k1jwmlt8n" path="res://Assets/tiles1/isometric tileset/spritesheet.png" id="1_1kqwk"]
 [ext_resource type="Texture2D" uid="uid://bsutaf3olr54v" path="res://Assets/tiles1/isometric tileset/selected.png" id="2_6vpde"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ca2wdtu1764yf" path="res://Assets/tiles1/isometric tileset/selected2.png" id="4_cclq8"]
 [ext_resource type="Texture2D" uid="uid://ki8ohyd3a41p" path="res://Assets/tiles1/isometric tileset/block.png" id="4_wmkjc"]
 [ext_resource type="Texture2D" uid="uid://cqk0os7ee0lmp" path="res://Assets/bg.png" id="6_8f1pq"]
+[ext_resource type="Texture2D" uid="uid://bhvo6ehgbbs1s" path="res://Assets/tiles1/isometric tileset/selected3.png" id="6_vh08t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tpboh"]
 texture = ExtResource("1_1kqwk")
@@ -200,6 +201,12 @@ texture_region_size = Vector2i(32, 32)
 0:0/0/y_sort_origin = -13
 0:1/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ly562"]
+texture = ExtResource("6_vh08t")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -3)
+
 [sub_resource type="TileSet" id="TileSet_xqly8"]
 tile_shape = 1
 tile_layout = 5
@@ -210,6 +217,7 @@ sources/1 = SubResource("TileSetAtlasSource_ggx86")
 sources/2 = SubResource("TileSetAtlasSource_skjc6")
 sources/4 = SubResource("TileSetAtlasSource_fsumt")
 sources/3 = SubResource("TileSetAtlasSource_16e8k")
+sources/5 = SubResource("TileSetAtlasSource_ly562")
 
 [node name="tile_map" type="TileMap"]
 y_sort_enabled = true
@@ -224,6 +232,8 @@ layer_2/y_sort_enabled = true
 layer_3/name = "Layer3"
 layer_3/y_sort_enabled = true
 layer_3/z_index = 1
+layer_4/name = "Layer4"
+layer_4/y_sort_enabled = true
 script = ExtResource("2_kq4pw")
 
 [node name="background" type="Sprite2D" parent="."]

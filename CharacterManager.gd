@@ -24,8 +24,9 @@ func _ready():
 		update_camera()
 
 # Function to switch to the next player in the list
-func switch_to_next_player():
+func switch_to_next_player(target_tile):
 	var current_index = players.find(active_player)
+	active_player.current_position = target_tile
 	current_index += 1
 
 	if current_index >= players.size():

@@ -7,6 +7,7 @@ var tile_map
 
 var speed: float = 200.0  # Movement speed
 var target_position: Vector2 = Vector2()  # Target position for movement
+var current_position: Vector2 = Vector2()  # Target position for movement
 var is_moving: bool = false  # Track whether the character is moving
 
 @onready var turn_counter = get_node("/root/Main/TurnCounter")
@@ -16,6 +17,7 @@ func _ready():
 	CharacterManager.update_camera()
 	global_position = tile_map.map_to_local(StartPosition) # Start at the specified position
 	target_position = global_position # Set the initial target to current position
+	current_position = StartPosition
 	print(CharacterManager.active_player)
 
 func _physics_process(delta):
@@ -36,25 +38,47 @@ func move_toward_target(delta):
 	var current_tile = tile_map.local_to_map(global_position)
 	var target_tile = tile_map.local_to_map(target_position)
 	var target_tile_x = Vector2i(target_tile.x, current_tile.y)
+	var target_tile_y = Vector2i(current_tile.x, target_tile.y)
 	var target_position_x = tile_map.map_to_local(target_tile_x)
+	var target_position_y = tile_map.map_to_local(target_tile_y)
+	var dist_x = abs(target_tile.x - current_position.x)
+	var dist_y = abs(target_tile.y - current_position.y)
+
 	
 	# Set the TurnCounter to be invisible at the beginning
 	turn_counter.visible = false
-
-	# Check if we have arrived at the target tile (using map coordinates)
-	if current_tile == target_tile:
-		# Snap to the target position and stop moving
-		global_position = target_position
-		is_moving = false
-		CharacterManager.switch_to_next_player()
-	elif current_tile.x != target_tile_x.x:
-		# Interpolate position towards the target
-		var direction = (target_position_x - global_position).normalized()
-		global_position += direction * speed * delta
-	else:
-		# Interpolate position towards the target
-		var direction = (target_position - global_position).normalized()
-		global_position += direction * speed * delta
+	
+	# Move along the axis with the greater distance first
+	if dist_x > dist_y:
+		# Check if we have arrived at the target tile (using map coordinates)
+		if current_tile == target_tile:
+			# Snap to the target position and stop moving
+			global_position = target_position
+			is_moving = false
+			CharacterManager.switch_to_next_player(target_tile)
+		elif current_tile.x != target_tile_x.x:
+			# Interpolate position towards the target
+			var direction = (target_position_x - global_position).normalized()
+			global_position += direction * speed * delta
+		else:
+			# Interpolate position towards the target
+			var direction = (target_position - global_position).normalized()
+			global_position += direction * speed * delta
+	else:		# Check if we have arrived at the target tile (using map coordinates)
+		if current_tile == target_tile:
+			# Snap to the target position and stop moving
+			global_position = target_position
+			is_moving = false
+			CharacterManager.switch_to_next_player(target_tile)
+		elif current_tile.y != target_tile_y.y:
+			# Interpolate position towards the target
+			var direction = (target_position_y - global_position).normalized()
+			global_position += direction * speed * delta
+		else:
+			# Interpolate position towards the target
+			var direction = (target_position - global_position).normalized()
+			global_position += direction * speed * delta
+		
 
 func MoveMouse():
 	if Input.is_action_just_pressed("LeftClick") and not is_moving:
@@ -70,4 +94,5 @@ func MoveMouse():
 				if distance_to_tile <= Movement:
 					# Set the target position and begin moving
 					target_position = clicked_tile_position
+					current_position = current_tile
 					is_moving = true

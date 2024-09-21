@@ -40,6 +40,9 @@ func update_turn():
 		var first_player = CharacterManager.players[0]
 		CharacterManager.players.remove_at(0)  # Remove the first player
 		CharacterManager.players.append(first_player)  # Add them at the end
+		
+		# Make the TurnCounter visible again after updating the camera
+		self.visible = true
 	
 	# Refresh the turn order display
 	update_turn_order()
