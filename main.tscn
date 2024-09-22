@@ -14,6 +14,9 @@ position = Vector2(0, -42)
 [node name="Player2" parent="." instance=ExtResource("3_fvwc0")]
 position = Vector2(46, -42)
 
+[node name="Player3" parent="." instance=ExtResource("3_fvwc0")]
+position = Vector2(46, -42)
+
 [node name="Enemy" parent="." instance=ExtResource("2_ltdtu")]
 
 [node name="tile_map" parent="." instance=ExtResource("2_6jude")]
@@ -24,5 +27,9 @@ position = Vector2(0, 1)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
-[node name="TurnCounter" parent="." instance=ExtResource("1_2bk23")]
-position = Vector2(71, 16)
+[node name="Overlay" type="CanvasLayer" parent="."]
+
+[node name="TurnCounter" parent="Overlay" instance=ExtResource("1_2bk23")]
+z_index = 3
+position = Vector2(555, 316)
+scale = Vector2(2, 2)

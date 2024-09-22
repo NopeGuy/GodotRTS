@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 var Movement: int = 10  # Max movement range
-var HP: int = 20  # Health Points
+var HP: int = 100  # Health Points
 var Abilities = []
 var StartPosition: Vector2i
+var HealthPos: Vector2i
 var tile_map
 
 var speed: float = 200.0  # Movement speed
@@ -11,7 +12,7 @@ var target_position: Vector2 = Vector2()  # Target position for movement
 var current_position: Vector2 = Vector2()  # Target position for movement
 var is_moving: bool = false  # Track whether the character is moving
 
-@onready var turn_counter = get_node("/root/Main/TurnCounter")
+@onready var health_bar = get_node("CanvasLayer/HealthBar")
 
 func _ready():
 	tile_map = get_node("../tile_map")
@@ -19,7 +20,8 @@ func _ready():
 	global_position = tile_map.map_to_local(StartPosition) # Start at the specified position
 	target_position = global_position # Set the initial target to current position
 	current_position = StartPosition
-	print(CharacterManager.active_player)
+	health_bar.init_health(HP, HealthPos)
+	
 
 func _physics_process(delta):
 	# Check if this player is the active one before allowing movement
@@ -45,9 +47,6 @@ func move_toward_target(delta):
 	var dist_x = abs(target_tile.x - current_position.x)
 	var dist_y = abs(target_tile.y - current_position.y)
 
-	
-	# Set the TurnCounter to be invisible at the beginning
-	turn_counter.visible = false
 	
 	# Move along the axis with the greater distance first
 	if dist_x > dist_y:
@@ -97,3 +96,5 @@ func MoveMouse():
 					target_position = clicked_tile_position
 					current_position = current_tile
 					is_moving = true
+					HP = HP - 60
+					health_bar.health = HP

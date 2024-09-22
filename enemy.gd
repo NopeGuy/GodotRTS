@@ -11,7 +11,6 @@ var target_position: Vector2 = Vector2()  # Target position for movement
 var current_position: Vector2 = Vector2()  # Target position for movement
 var is_moving: bool = false  # Track whether the character is moving
 
-@onready var turn_counter = get_node("/root/Main/TurnCounter")
 
 func _ready():
 	tile_map = get_node("../tile_map")
@@ -46,9 +45,7 @@ func move_toward_target(delta):
 	var dist_x = abs(target_tile.x - current_position.x)
 	var dist_y = abs(target_tile.y - current_position.y)
 
-	
-	# Set the TurnCounter to be invisible at the beginning
-	turn_counter.visible = false
+
 	
 	# Move along the axis with the greater distance first
 	if dist_x > dist_y:

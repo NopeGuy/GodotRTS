@@ -1,7 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbl4hovm7tmkb"]
+[gd_scene load_steps=8 format=3 uid="uid://cbl4hovm7tmkb"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_fr0to"]
 [ext_resource type="Texture2D" uid="uid://ctmgx8oqfl84h" path="res://Assets/tiles1/critters/wolf/wolf-idle.png" id="2_34fwg"]
+[ext_resource type="PackedScene" uid="uid://siaqnq0ew1xy" path="res://health_bar.tscn" id="3_byoae"]
+
+[sub_resource type="Animation" id="Animation_5ll2d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_dngnk"]
 resource_name = "idle_bl"
@@ -18,21 +34,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_5ll2d"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fi2w8"]
@@ -71,3 +72,9 @@ y_sort_enabled = true
 position = Vector2(0, 4.28572)
 scale = Vector2(0.7, 0.7)
 shape = SubResource("RectangleShape2D_d426h")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_byoae")]
+offset_top = 2.85714
+offset_right = 29.0
+offset_bottom = 9.85714
+rotation = 0.0

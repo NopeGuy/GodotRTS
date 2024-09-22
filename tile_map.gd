@@ -81,11 +81,14 @@ func _process(delta):
 	var tile = local_to_map(get_global_mouse_position())
 	
 	# Check if the active player has changed
-	if CharacterManager.active_player != previous_active_player:
-		# Update the currentCharTile when the active player changes
-		clear_movement_tiles()
-		previous_active_player = CharacterManager.active_player  # Update the previous active player
-		show_movement_tiles()
+#	if CharacterManager.active_player != previous_active_player:
+#		# Update the currentCharTile when the active player changes
+#		clear_movement_tiles()
+#		previous_active_player = CharacterManager.active_player  # Update the previous active player
+#		show_movement_tiles()
+
+	clear_movement_tiles()
+	show_movement_tiles()
 	
 	# Only proceed if the selectedTile is different from the hovered tile
 	if selectedTile == tile:
@@ -111,18 +114,19 @@ func clear_movement_tiles():
 	highlighted_tiles.clear()  # Clear the list after erasing
 
 func show_movement_tiles():
-	# Get the movement range of the active player
-	var movement_range = CharacterManager.active_player.Movement 
-	var current_position = CharacterManager.active_player.current_position
-	
-	# Highlight the movement tiles based on the movement range
-	for dx in range(-movement_range, movement_range + 1):
-		for dy in range(-movement_range, movement_range + 1):
-			var target_tile = Vector2i(current_position) + Vector2i(dx, dy)
-			if (abs(dx) + abs(dy)) <= movement_range:  # Check if within the movement range
-				if is_tile_walkable(target_tile):
-					set_cell(4, target_tile, 5, Vector2i(0, 0), 0)  # Highlight the tile
-					highlighted_tiles.append(target_tile)  # Track the highlighted tile
+	if CharacterManager.active_player != null:
+		# Get the movement range of the active player
+		var movement_range = CharacterManager.active_player.Movement 
+		var current_position = CharacterManager.active_player.current_position
+		
+		# Highlight the movement tiles based on the movement range
+		for dx in range(-movement_range, movement_range + 1):
+			for dy in range(-movement_range, movement_range + 1):
+				var target_tile = Vector2i(current_position) + Vector2i(dx, dy)
+				if (abs(dx) + abs(dy)) <= movement_range:  # Check if within the movement range
+					if is_tile_walkable(target_tile):
+						set_cell(4, target_tile, 5, Vector2i(0, 0), 0)  # Highlight the tile
+						highlighted_tiles.append(target_tile)  # Track the highlighted tile
 
 
 
@@ -134,7 +138,7 @@ func get_selected_tile():
 func is_tile_walkable(tile_pos):
 	var tile_key = str(tile_pos)
 	if Dic.has(tile_key):
-		for character in CharacterManager.players:
+		for character in CharacterManager.alive_characters:
 			if Vector2i(character.current_position) == tile_pos:
 				return false  # Tile is occupied by another character
 		return Dic[tile_key]["Walkable"]  # Tile is unoccupied

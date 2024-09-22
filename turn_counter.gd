@@ -42,7 +42,7 @@ func update_turn():
 		CharacterManager.players.append(first_player)  # Add them at the end
 		
 		# Make the TurnCounter visible again after updating the camera
-		self.visible = true
+#		self.visible = true
 	
 	# Refresh the turn order display
 	update_turn_order()
