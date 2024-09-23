@@ -29,14 +29,9 @@ func _ready():
 	players[0].HealthPos = Vector2i(40, 200)
 	players[1].HealthPos = Vector2i(40, 330)
 	players[2].HealthPos = Vector2i(40, 460)
-	
-	alive_characters = players
-	
-	# Debugging: Print the list of players to verify initialization
-	print(str(alive_characters))
 
-	if alive_characters.size() > 0:
-		active_player = alive_characters[0] # Set the first player as the active one
+	if players.size() > 0:
+		active_player = players[0] # Set the first player as the active one
 		update_camera()
 
 # Function to switch to the next player in the list
@@ -50,24 +45,31 @@ func switch_to_next_player(target_tile):
 			alive_characters.remove_at(i)
 
 	# Find the index of the current active player
-	var current_index = alive_characters.find(active_player)
+	var current_index = players.find(active_player)
 
-	# Move to the next player
-	current_index += 1
+	# Move to the next player, and find the first one with HP > 0
+	var found_active_player = false
+	var start_index = current_index + 1
 
-	# If we've gone past the end of the list, loop back to the start
-	if current_index >= alive_characters.size():
-		current_index = 0  # Loop back to the first player
+	# Loop through players starting from the next one
+	while not found_active_player:
+		# If we've gone past the end of the list, loop back to the start
+		if start_index >= players.size():
+			start_index = 0  # Loop back to the first player
 
-	# Set the new active player
-	if alive_characters.size() > 0:
-		active_player = alive_characters[current_index]
-	else:
-		active_player = null  # No players left
+		# Check if the player has HP > 0
+		if players[start_index].HP > 0:
+			active_player = players[start_index]
+			found_active_player = true
+		else:
+			start_index += 1  # Move to the next player
 
+	print(players)
+	# Reset the time passed and update camera
 	time_passed = 0
 	update_camera()
 	turn_counter.update_turn()
+
 
 
 # Ensure the global camera follows the current active player

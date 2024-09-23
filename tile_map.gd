@@ -138,7 +138,7 @@ func get_selected_tile():
 func is_tile_walkable(tile_pos):
 	var tile_key = str(tile_pos)
 	if Dic.has(tile_key):
-		for character in CharacterManager.alive_characters:
+		for character in CharacterManager.players:
 			if Vector2i(character.current_position) == tile_pos:
 				return false  # Tile is occupied by another character
 		return Dic[tile_key]["Walkable"]  # Tile is unoccupied

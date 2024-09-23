@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bs18qj1lxa5wo"]
 
-[ext_resource type="Script" path="res://turn_counter.gd" id="1_22aic"]
+[ext_resource type="Script" path="res://Overlay/turn_counter.gd" id="1_22aic"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhao7"]
 bg_color = Color(0.145672, 0.31434, 0.268241, 1)
