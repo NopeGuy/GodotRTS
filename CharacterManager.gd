@@ -80,5 +80,6 @@ func update_camera():
 	
 	# Update camera position
 	if active_player != null:
-		camera.position = active_player.global_position
+		camera.position.x = active_player.global_position.x - 150
+		camera.position.y = active_player.global_position.y
 	background.position = camera.position
