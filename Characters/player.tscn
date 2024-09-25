@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dhdc7l4hnafb0"]
 
 [ext_resource type="Script" path="res://Characters/player.gd" id="1_pkel6"]
-[ext_resource type="Texture2D" uid="uid://3sa4c1m2tsmy" path="res://Assets/tiles1/critters/men.png" id="2_vree8"]
+[ext_resource type="Texture2D" uid="uid://3sa4c1m2tsmy" path="res://Assets/characters/men.png" id="2_vree8"]
 [ext_resource type="PackedScene" uid="uid://siaqnq0ew1xy" path="res://Overlay/health_bar.tscn" id="3_qk4m8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d426h"]

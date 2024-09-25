@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cbl4hovm7tmkb"]
 
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_fr0to"]
-[ext_resource type="Texture2D" uid="uid://ctmgx8oqfl84h" path="res://Assets/tiles1/critters/wolf/wolf-idle.png" id="2_34fwg"]
+[ext_resource type="Texture2D" uid="uid://ctmgx8oqfl84h" path="res://Assets/enemies/wolf/wolf-idle.png" id="2_34fwg"]
 [ext_resource type="PackedScene" uid="uid://siaqnq0ew1xy" path="res://Overlay/health_bar.tscn" id="3_byoae"]
 
 [sub_resource type="Animation" id="Animation_5ll2d"]

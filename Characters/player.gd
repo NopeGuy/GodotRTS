@@ -13,6 +13,7 @@ var current_position: Vector2 = Vector2()  # Target position for movement
 var is_moving: bool = false  # Track whether the character is moving
 var walkable_tiles
 var path
+@onready var sprite = get_node("Sprite2D")
 
 @onready var health_bar = get_node("CanvasLayer/HealthBar")
 
@@ -84,4 +85,6 @@ func MoveMouse():
 				
 				# Example of HP reduction, you can change this logic as needed
 				HP -= 60
+				if HP <= 0:
+					sprite.set_frame(2)
 				health_bar.health = HP
