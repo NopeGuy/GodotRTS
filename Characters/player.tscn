@@ -22,7 +22,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_vree8")
 hframes = 12
 vframes = 8
-frame = 49
+frame = 52
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true

@@ -85,16 +85,19 @@ func MoveMouse():
 		if tile_map and tile_map.has_method("get_selected_tile"):
 			var selected_tile = Vector2i(tile_map.get_selected_tile())
 
-			# Convert the selected tile to local space and check walkability
-			if tile_map.is_tile_walkable(selected_tile):
+			# Get the list of walkable tiles from the current position
+			var walkable_tiles = tile_map.is_tile_walkable(self.current_position, self.Movement)
+
+			# Check if the selected tile is in the list of walkable tiles
+			if selected_tile in walkable_tiles:
 				var clicked_tile_position = tile_map.map_to_local(selected_tile)
 				var current_tile = tile_map.local_to_map(global_position)
-				var distance_to_tile = abs(selected_tile.x - current_tile.x) + abs(selected_tile.y - current_tile.y)
-				# Check if the distance is within the allowed movement range
-				if distance_to_tile <= Movement:
-					# Set the target position and begin moving
-					target_position = clicked_tile_position
-					current_position = current_tile
-					is_moving = true
-					HP = HP - 60
-					health_bar.health = HP
+				
+				# Set the target position and begin moving
+				target_position = clicked_tile_position
+				current_position = current_tile
+				is_moving = true
+				
+				# Example of HP reduction, you can change this logic as needed
+				HP -= 60
+				health_bar.health = HP

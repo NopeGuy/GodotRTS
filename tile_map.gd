@@ -61,7 +61,7 @@ func _ready():
 					"Position": Vector2(x, y)
 				}
 				set_cell(0, Vector2i(x, y), 0, Vector2i(7, 3), 0)
-				if ((x == 5 and y == 7) or (x == 9 and y == 4)):
+				if ((x == 5 and y == 7) or (x == 6 and y == 7) or (x == 4 and y == 7)):
 					Dic[str(Vector2(x, y))] = {
 						"Type": "Tree",
 						"Walkable": false,  # Statues are not walkable
@@ -115,18 +115,18 @@ func clear_movement_tiles():
 
 func show_movement_tiles():
 	if CharacterManager.active_player != null:
-		# Get the movement range of the active player
-		var movement_range = CharacterManager.active_player.Movement 
+		# Get the movement range and current position of the active player
+		var movement_range = CharacterManager.active_player.Movement
 		var current_position = CharacterManager.active_player.current_position
 		
-		# Highlight the movement tiles based on the movement range
-		for dx in range(-movement_range, movement_range + 1):
-			for dy in range(-movement_range, movement_range + 1):
-				var target_tile = Vector2i(current_position) + Vector2i(dx, dy)
-				if (abs(dx) + abs(dy)) <= movement_range:  # Check if within the movement range
-					if is_tile_walkable(target_tile):
-						set_cell(4, target_tile, 5, Vector2i(0, 0), 0)  # Highlight the tile
-						highlighted_tiles.append(target_tile)  # Track the highlighted tile
+		# Get the list of walkable tiles using BFS with pruning
+		var walkable_tiles = is_tile_walkable(current_position, movement_range)
+		
+		# Highlight each walkable tile
+		for tile in walkable_tiles:
+			set_cell(4, tile, 5, Vector2i(0, 0), 0)  # Highlight the tile
+			highlighted_tiles.append(tile)  # Track the highlighted tile
+
 
 
 
@@ -134,12 +134,54 @@ func show_movement_tiles():
 func get_selected_tile():
 	return selectedTile
 
-# Check if the tile is walkable
-func is_tile_walkable(tile_pos):
-	var tile_key = str(tile_pos)
-	if Dic.has(tile_key):
-		for character in CharacterManager.players:
-			if Vector2i(character.current_position) == tile_pos:
-				return false  # Tile is occupied by another character
-		return Dic[tile_key]["Walkable"]  # Tile is unoccupied
-	return false
+# Check if the tile is walkable and return a list of reachable tiles within the movement range
+func is_tile_walkable(current: Vector2i, movement: int) -> Array:
+	var visited = {}
+	var walkable_tiles = []
+	var directions = [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]  # 4 directions (up, down, left, right)
+	var queue = []
+	
+	# Start BFS from the current position
+	queue.append({"position": current, "steps": 0})
+	visited[str(current)] = true
+	
+	while queue.size() > 0:
+		var current_node = queue.pop_front()
+		var current_position = current_node["position"]
+		var steps = current_node["steps"]
+
+		# Add the current position to walkable tiles
+		if steps <= movement:
+			walkable_tiles.append(current_position)
+		else:
+			# Prune if we've gone beyond the movement range
+			continue
+
+		# Explore adjacent tiles in 4 directions (up, down, left, right)
+		for direction in directions:
+			var next_position = current_position + direction
+			var next_key = str(next_position)
+
+			# Make sure the tile is within the grid and hasn't been visited
+			if !visited.has(next_key) and Dic.has(next_key):
+				# Manhattan distance to prune paths that go beyond the movement range early
+				var manhattan_distance = abs(next_position.x - current.x) + abs(next_position.y - current.y)
+				if manhattan_distance > movement:
+					continue  # Prune this path since it's out of range
+				
+				# Check if the tile is walkable
+				if Dic[next_key]["Walkable"] and (steps + 1 <= movement):
+					# Prune exploration of occupied tiles (another character is there)
+					var occupied = false
+					for character in CharacterManager.players:
+						if Vector2i(character.current_position) == next_position:
+							occupied = true
+							break
+					if occupied:
+						continue  # Prune if tile is occupied
+					
+					# Add to the queue and mark as visited
+					visited[next_key] = true
+					queue.append({"position": next_position, "steps": steps + 1})
+	
+	return walkable_tiles
