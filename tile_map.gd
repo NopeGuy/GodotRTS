@@ -185,3 +185,100 @@ func is_tile_walkable(current: Vector2i, movement: int) -> Array:
 					queue.append({"position": next_position, "steps": steps + 1})
 	
 	return walkable_tiles
+
+# Calculate the path from the current position to the target position
+func find_path(current_position: Vector2i, target_position: Vector2i, walkable_tiles: Array) -> Array:
+	var open_set = []  # Nodes to be evaluated
+	var came_from = {}  # For reconstructing the path
+	var g_score = {}  # Cost from start to a node
+	var f_score = {}  # Total cost from start to goal through the node
+	
+	# Initialize scores for all walkable tiles
+	for tile in walkable_tiles:
+		g_score[str(tile)] = INF  # Set to infinity
+		f_score[str(tile)] = INF
+	
+	g_score[str(current_position)] = 0
+	f_score[str(current_position)] = heuristic(current_position, target_position)
+	open_set.append(current_position)
+
+	while open_set.size() > 0:
+		# Get the node in open_set with the lowest f_score
+		var current = get_lowest_f_score(open_set, f_score)
+
+		# Check if we reached the target
+		if current == target_position:
+			return reconstruct_path(came_from, current)
+
+		open_set.erase(current)  # Remove current from open_set
+
+		# Check the neighbors
+		for direction in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+			var neighbor = current + direction
+			
+			# Ensure neighbor is a walkable tile and not occupied
+			if Dic.has(str(neighbor)) and Dic[str(neighbor)]["Walkable"]:
+				var occupied = false
+				for character in CharacterManager.players:
+					if Vector2i(character.current_position) == neighbor:
+						occupied = true
+						break
+
+				if occupied:
+					continue  # Skip this neighbor if occupied
+
+				var tentative_g_score = g_score[str(current)] + 1  # Base cost for moving
+				var current_direction = get_direction(current, neighbor)
+
+				# Add turn penalty if direction changes
+				if came_from.has(str(current)):
+					var previous_direction = get_direction(came_from[str(current)], current)
+					if current_direction != previous_direction:
+						tentative_g_score += 1  # Add penalty for turning
+
+				# Debugging output
+				print("Current: ", str(current), " Neighbor: ", str(neighbor), " Tentative G Score: ", tentative_g_score)
+
+				# Ensure that g_score for neighbor is initialized
+				if !g_score.has(str(neighbor)):
+					print("Warning: g_score does not have key: ", str(neighbor))
+					g_score[str(neighbor)] = INF  # Default to INF to avoid access errors
+
+				if tentative_g_score < g_score[str(neighbor)]:
+					# This path is the best until now, record it
+					came_from[str(neighbor)] = current
+					g_score[str(neighbor)] = tentative_g_score
+					f_score[str(neighbor)] = g_score[str(neighbor)] + heuristic(neighbor, target_position)
+
+					if not open_set.has(neighbor):
+						open_set.append(neighbor)
+
+	return []  # Return empty array if no path is found
+
+# Helper function to calculate heuristic (Manhattan distance)
+func heuristic(a: Vector2i, b: Vector2i) -> int:
+	return abs(a.x - b.x) + abs(a.y - b.y)
+
+# Helper function to get the node with the lowest f_score
+func get_lowest_f_score(open_set: Array, f_score: Dictionary) -> Vector2i:
+	var lowest = open_set[0]
+	for node in open_set:
+		if f_score[str(node)] < f_score[str(lowest)]:
+			lowest = node
+	return lowest
+
+# Helper function to reconstruct the path from came_from
+func reconstruct_path(came_from: Dictionary, current: Vector2i) -> Array:
+	var total_path = []
+	total_path.append(current)
+
+	while came_from.has(str(current)):
+		current = came_from[str(current)]
+		total_path.append(current)
+
+	total_path.reverse()  # Reverse the path to start from the beginning
+	return total_path
+
+# Helper function to get the direction between two tiles
+func get_direction(from: Vector2i, to: Vector2i) -> Vector2i:
+	return (to - from)

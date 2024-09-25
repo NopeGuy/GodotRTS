@@ -24,11 +24,11 @@ func _ready():
 	players[0].Movement = 5
 	players[1].Movement = 6 
 	players[2].Movement = 7
-	players[3].Movement = 5
+	players[3].Movement = 10
 	
-	players[0].HealthPos = Vector2i(40, 200)
-	players[1].HealthPos = Vector2i(40, 330)
-	players[2].HealthPos = Vector2i(40, 460)
+	players[0].HealthPos = Vector2i(40, 300)
+	players[1].HealthPos = Vector2i(40, 500)
+	players[2].HealthPos = Vector2i(40, 700)
 
 	if players.size() > 0:
 		active_player = players[0] # Set the first player as the active one

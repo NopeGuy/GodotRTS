@@ -11,6 +11,8 @@ var speed: float = 200.0  # Movement speed
 var target_position: Vector2 = Vector2()  # Target position for movement
 var current_position: Vector2 = Vector2()  # Target position for movement
 var is_moving: bool = false  # Track whether the character is moving
+var walkable_tiles
+var path
 
 @onready var health_bar = get_node("CanvasLayer/HealthBar")
 
@@ -37,48 +39,29 @@ func _physics_process(delta):
 		move_toward_target(delta)
 
 func move_toward_target(delta):
-	# Move smoothly toward the target position
-	var current_tile = tile_map.local_to_map(global_position)
-	var target_tile = tile_map.local_to_map(target_position)
-	var target_tile_x = Vector2i(target_tile.x, current_tile.y)
-	var target_tile_y = Vector2i(current_tile.x, target_tile.y)
-	var target_position_x = tile_map.map_to_local(target_tile_x)
-	var target_position_y = tile_map.map_to_local(target_tile_y)
-	var dist_x = abs(target_tile.x - current_position.x)
-	var dist_y = abs(target_tile.y - current_position.y)
+	if path.size() == 0:  # If there are no more tiles in the path, exit the function
+		return
 
-	
-	# Move along the axis with the greater distance first
-	if dist_x > dist_y:
-		# Check if we have arrived at the target tile (using map coordinates)
-		if current_tile == target_tile:
-			# Snap to the target position and stop moving
-			global_position = target_position
+	# Get the current tile and the next target tile from the path
+	var current_tile = tile_map.local_to_map(global_position)
+	var next_target_tile = path[0]
+	var next_target_position = tile_map.map_to_local(next_target_tile)
+
+	# Check if we have arrived at the next target tile
+	if current_tile == next_target_tile:
+		# Snap to the target position
+		global_position = next_target_position
+		path.remove_at(0)  # Remove the reached tile from the path
+
+		# If there are no more tiles in the path, stop moving
+		if path.size() == 0:
 			is_moving = false
-			CharacterManager.switch_to_next_player(target_tile)
-		elif current_tile.x != target_tile_x.x:
-			# Interpolate position towards the target
-			var direction = (target_position_x - global_position).normalized()
-			global_position += direction * speed * delta
-		else:
-			# Interpolate position towards the target
-			var direction = (target_position - global_position).normalized()
-			global_position += direction * speed * delta
-	else:		# Check if we have arrived at the target tile (using map coordinates)
-		if current_tile == target_tile:
-			# Snap to the target position and stop moving
-			global_position = target_position
-			is_moving = false
-			CharacterManager.switch_to_next_player(target_tile)
-		elif current_tile.y != target_tile_y.y:
-			# Interpolate position towards the target
-			var direction = (target_position_y - global_position).normalized()
-			global_position += direction * speed * delta
-		else:
-			# Interpolate position towards the target
-			var direction = (target_position - global_position).normalized()
-			global_position += direction * speed * delta
-		
+			CharacterManager.switch_to_next_player(next_target_tile)  # Notify that we've reached the final target
+	else:
+		# Calculate direction and move towards the next target position
+		var direction = (next_target_position - global_position).normalized()
+		global_position += direction * speed * delta
+
 
 func MoveMouse():
 	if Input.is_action_just_pressed("LeftClick") and not is_moving:
@@ -86,7 +69,7 @@ func MoveMouse():
 			var selected_tile = Vector2i(tile_map.get_selected_tile())
 
 			# Get the list of walkable tiles from the current position
-			var walkable_tiles = tile_map.is_tile_walkable(self.current_position, self.Movement)
+			walkable_tiles = tile_map.is_tile_walkable(self.current_position, self.Movement)
 
 			# Check if the selected tile is in the list of walkable tiles
 			if selected_tile in walkable_tiles:
@@ -96,6 +79,7 @@ func MoveMouse():
 				# Set the target position and begin moving
 				target_position = clicked_tile_position
 				current_position = current_tile
+				path = tile_map.find_path(current_tile, selected_tile, walkable_tiles)
 				is_moving = true
 				
 				# Example of HP reduction, you can change this logic as needed
