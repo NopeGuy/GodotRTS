@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 var Movement: int = 10  # Max movement range
-var HP: int = 20  # Health Points
+var HP: int = 100  # Health Points
 var Abilities = []
 var StartPosition: Vector2i
+var HealthPos: Vector2i
 var tile_map
 
 var speed: float = 200.0  # Movement speed
@@ -12,15 +13,17 @@ var current_position: Vector2 = Vector2()  # Target position for movement
 var is_moving: bool = false  # Track whether the character is moving
 var walkable_tiles
 var path
+@onready var sprite = get_node("Sprite2D")
+
+@onready var health_bar = get_node("CanvasLayer/HealthBar")
 
 func _ready():
 	tile_map = get_node("../tile_map")
-	CharacterManager.update_camera()
 	global_position = tile_map.map_to_local(StartPosition) # Start at the specified position
 	target_position = global_position # Set the initial target to current position
 	current_position = StartPosition
 	$Sprite2D/AnimationPlayer.play("idle_bl")
-	print(CharacterManager.active_player)
+	
 
 func _physics_process(delta):
 	# Check if this player is the active one before allowing movement
@@ -34,7 +37,6 @@ func _physics_process(delta):
 	# If moving, smoothly move toward the target position
 	if is_moving:
 		move_toward_target(delta)
-
 
 func move_toward_target(delta):
 	if path.size() == 0:  # If there are no more tiles in the path, exit the function

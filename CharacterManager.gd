@@ -5,8 +5,8 @@ var alive_characters = [] # List of alive characters
 var active_player = null # Reference to the current active player
 var time_passed: float = 0
 @onready var turn_counter = get_node("/root/Main/Overlay/TurnCounter")
+@onready var tile_map = get_node("/root/Main/tile_map")
 
-# Use @onready to delay initialization until the scene is ready
 
 func _ready():
 	# Initialize the player list by adding the player nodes
@@ -29,57 +29,50 @@ func _ready():
 	players[0].HealthPos = Vector2i(40, 300)
 	players[1].HealthPos = Vector2i(40, 500)
 	players[2].HealthPos = Vector2i(40, 700)
+	
+	
+	for player in players:
+		player.walkable_tiles = tile_map.is_tile_walkable(player.current_position, player.Movement)
 
+	await get_tree().create_timer(0.1).timeout
+	
+	 # Add all alive players to alive_characters
+	alive_characters = players.filter(func(p): return p.HP > 0)
 	if players.size() > 0:
-		active_player = players[0] # Set the first player as the active one
-		update_camera()
+		active_player = players[players.size() - 1] # Set the last player as active
+		switch_to_next_player(players[players.size() - 1].current_position)
 
 # Function to switch to the next player in the list
 func switch_to_next_player(target_tile):
 	# Set the current player's position
 	active_player.current_position = target_tile
-	
+
 	# Remove players with 0 or less HP from the alive_characters list
-	for i in range(alive_characters.size() - 1, -1, -1):  # Iterate backwards
-		if alive_characters[i].HP <= 0:
-			alive_characters.remove_at(i)
+	alive_characters = alive_characters.filter(func(p): return p.HP > 0)
 
 	# Find the index of the current active player
 	var current_index = players.find(active_player)
 
-	# Move to the next player, and find the first one with HP > 0
-	var found_active_player = false
-	var start_index = current_index + 1
+	# Move to the next player, and find the first one that is still alive
+	current_index = (current_index + 1) % players.size()
+	while players[current_index].HP <= 0:
+		current_index = (current_index + 1) % players.size()
 
-	# Loop through players starting from the next one
-	while not found_active_player:
-		# If we've gone past the end of the list, loop back to the start
-		if start_index >= players.size():
-			start_index = 0  # Loop back to the first player
+	# Set the next active player
+	active_player = players[current_index]
 
-		# Check if the player has HP > 0
-		if players[start_index].HP > 0:
-			active_player = players[start_index]
-			found_active_player = true
-		else:
-			start_index += 1  # Move to the next player
+	# Update the turn counter
+	turn_counter.update_turn_order()
 
-	print(players)
-	# Reset the time passed and update camera
-	time_passed = 0
-	update_camera()
-	turn_counter.update_turn()
-
-
-
-# Ensure the global camera follows the current active player
-func update_camera():
-	var tile_map = get_node("/root/Main/tile_map")
-	var background = tile_map.get_node("background")  # Access the "background" child node
+	# Sync camera position to the active player
+	var background = tile_map.get_node("background") # Access the "background" child node
 	var camera = get_node("/root/Main/Camera2D")
+
 	
-	# Update camera position
 	if active_player != null:
 		camera.position.x = active_player.global_position.x - 150
 		camera.position.y = active_player.global_position.y
 	background.position = camera.position
+
+	tile_map.clear_movement_tiles()
+	tile_map.show_movement_tiles()

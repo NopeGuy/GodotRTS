@@ -80,16 +80,6 @@ func _ready():
 func _process(delta):
 	var tile = local_to_map(get_global_mouse_position())
 	
-	# Check if the active player has changed
-#	if CharacterManager.active_player != previous_active_player:
-#		# Update the currentCharTile when the active player changes
-#		clear_movement_tiles()
-#		previous_active_player = CharacterManager.active_player  # Update the previous active player
-#		show_movement_tiles()
-
-	clear_movement_tiles()
-	show_movement_tiles()
-	
 	# Only proceed if the selectedTile is different from the hovered tile
 	if selectedTile == tile:
 		return
@@ -126,10 +116,8 @@ func show_movement_tiles():
 		for tile in walkable_tiles:
 			set_cell(4, tile, 5, Vector2i(0, 0), 0)  # Highlight the tile
 			highlighted_tiles.append(tile)  # Track the highlighted tile
-			erase_cell(4, current_position)
-		set_cell(5, current_position, 5, Vector2i(0, 0), 0)
-		
-
+		highlighted_tiles.append(current_position)
+		set_cell(4, current_position, 6, Vector2i(0, 0), 0)  # Highlight the tile
 
 
 # Return the selected tile position
@@ -185,7 +173,8 @@ func is_tile_walkable(current: Vector2i, movement: int) -> Array:
 					# Add to the queue and mark as visited
 					visited[next_key] = true
 					queue.append({"position": next_position, "steps": steps + 1})
-	
+	# Remove current tile from list
+	walkable_tiles.remove_at(0)
 	return walkable_tiles
 
 # Calculate the path from the current position to the target position
@@ -239,11 +228,11 @@ func find_path(current_position: Vector2i, target_position: Vector2i, walkable_t
 						tentative_g_score += 1  # Add penalty for turning
 
 				# Debugging output
-				print("Current: ", str(current), " Neighbor: ", str(neighbor), " Tentative G Score: ", tentative_g_score)
+#				print("Current: ", str(current), " Neighbor: ", str(neighbor), " Tentative G Score: ", tentative_g_score)
 
 				# Ensure that g_score for neighbor is initialized
 				if !g_score.has(str(neighbor)):
-					print("Warning: g_score does not have key: ", str(neighbor))
+#					print("Warning: g_score does not have key: ", str(neighbor))
 					g_score[str(neighbor)] = INF  # Default to INF to avoid access errors
 
 				if tentative_g_score < g_score[str(neighbor)]:
