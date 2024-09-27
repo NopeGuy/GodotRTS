@@ -3,7 +3,7 @@ extends TileMap
 var GridSize = 20
 var Dic = {}
 var selectedTile = Vector2i()
-var previous_active_player = null  # Variable to track the previous active player
+var previous_active_pos = Vector2i()  # Variable to track the previous active player
 
 func _ready():
 	for x in range(GridSize):
@@ -102,6 +102,7 @@ func clear_movement_tiles():
 	for tile in highlighted_tiles:
 		erase_cell(4, tile)  # Clear the highlighted tile layer
 	highlighted_tiles.clear()  # Clear the list after erasing
+	erase_cell(4, previous_active_pos)  # Clear the highlighted tile layer
 
 func show_movement_tiles():
 	if CharacterManager.active_player != null:
@@ -116,7 +117,7 @@ func show_movement_tiles():
 		for tile in walkable_tiles:
 			set_cell(4, tile, 5, Vector2i(0, 0), 0)  # Highlight the tile
 			highlighted_tiles.append(tile)  # Track the highlighted tile
-		highlighted_tiles.append(current_position)
+		previous_active_pos = current_position
 		set_cell(4, current_position, 6, Vector2i(0, 0), 0)  # Highlight the tile
 
 
@@ -163,7 +164,11 @@ func is_tile_walkable(current: Vector2i, movement: int) -> Array:
 				if Dic[next_key]["Walkable"] and (steps + 1 <= movement):
 					# Prune exploration of occupied tiles (another character is there)
 					var occupied = false
-					for character in CharacterManager.players:
+					for character in CharacterManager.characters:
+						if Vector2i(character.current_position) == next_position:
+							occupied = true
+							break
+					for character in CharacterManager.dead:
 						if Vector2i(character.current_position) == next_position:
 							occupied = true
 							break
@@ -210,11 +215,10 @@ func find_path(current_position: Vector2i, target_position: Vector2i, walkable_t
 			# Ensure neighbor is a walkable tile and not occupied
 			if Dic.has(str(neighbor)) and Dic[str(neighbor)]["Walkable"]:
 				var occupied = false
-				for character in CharacterManager.players:
+				for character in CharacterManager.characters:
 					if Vector2i(character.current_position) == neighbor:
 						occupied = true
 						break
-
 				if occupied:
 					continue  # Skip this neighbor if occupied
 

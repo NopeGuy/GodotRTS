@@ -18,9 +18,9 @@ func update_turn_order():
 	# Clear the chars array to avoid duplication
 	chars.clear()
 
-	# Loop through the CharacterManager.alive_characters list and add their names to chars
-	for player in CharacterManager.alive_characters:
-		chars.append(player.name)
+	for player in CharacterManager.characters:
+		if player.HP > 0:
+			chars.append(player.name)
 
 	# Loop through the chars list and create a label for each name
 	for char in chars:

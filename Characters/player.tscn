@@ -17,7 +17,7 @@ script = ExtResource("1_pkel6")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(2.71429, -24.2856)
+position = Vector2(1.28572, -24.2856)
 scale = Vector2(2, 2)
 texture = ExtResource("2_vree8")
 hframes = 12
