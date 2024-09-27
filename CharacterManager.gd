@@ -4,7 +4,7 @@ var characters = [] # List of playable characters
 var dead = [] # List of playable characters
 var active_player = null # Reference to the current active player
 var time_passed: float = 0
-@onready var turn_counter = get_node("/root/Main/Overlay/TurnCounter")
+@onready var turn_counter = get_node("/root/Main/Overlay/Canvas/TurnCounter")
 @onready var tile_map = get_node("/root/Main/tile_map")
 
 
@@ -26,9 +26,9 @@ func _ready():
 	characters[2].Movement = 7
 	characters[3].Movement = 5
 	
-	characters[1].HealthPos = Vector2i(40, 300)
-	characters[2].HealthPos = Vector2i(40, 500)
-	characters[3].HealthPos = Vector2i(40, 700)
+	characters[1].HealthPos = Vector2i(35, 405)
+	characters[2].HealthPos = Vector2i(35, 692)
+	characters[3].HealthPos = Vector2i(35, 979)
 	
 	
 	for player in characters:
@@ -80,8 +80,8 @@ func switch_to_next_player(target_tile):
 	var camera = get_node("/root/Main/Camera2D")
 
 	if active_player != null:
-		camera.position.x = active_player.global_position.x - 150
-		camera.position.y = active_player.global_position.y
+		camera.position.x = active_player.global_position.x - 50
+		camera.position.y = active_player.global_position.y - 30
 
 	tile_map.clear_movement_tiles()
 	tile_map.show_movement_tiles()

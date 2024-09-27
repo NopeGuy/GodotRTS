@@ -1,11 +1,12 @@
 extends TileMap
 
-var GridSize = 20
+var GridSize = 30
 var Dic = {}
 var selectedTile = Vector2i()
 var previous_active_pos = Vector2i()  # Variable to track the previous active player
 
-func _ready():
+func _ready():	
+	$CanvasLayer/background/AnimationPlayer.play("new_animation")
 	for x in range(GridSize):
 		for y in range(GridSize):
 			# Check if we are on the outer rim (edges of the grid)

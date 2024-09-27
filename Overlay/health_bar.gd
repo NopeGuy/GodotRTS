@@ -48,10 +48,5 @@ func _process(delta):
 			if damage_bar.value > health:
 				damage_bar.value = health  # Ensure no overshoot
 
-		# If health reaches zero and the damage bar has caught up, queue free the node
-		if health <= 0 and damage_bar.value <= 0:
-			# Remove the health bar after depletion
-			self.visible = false
-
 func update_pos(pos):
 	self.position = pos

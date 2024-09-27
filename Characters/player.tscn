@@ -31,9 +31,10 @@ scale = Vector2(0.7, 0.7)
 shape = SubResource("RectangleShape2D_d426h")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
 
 [node name="HealthBar" parent="CanvasLayer" instance=ExtResource("3_qk4m8")]
 offset_left = 90.0
-offset_top = -10.0
-offset_right = 188.0
-offset_bottom = 18.0
+offset_top = 67.0
+offset_right = 265.0
+offset_bottom = 183.0

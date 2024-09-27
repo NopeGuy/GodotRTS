@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca6wyqu66c4j4"]
+
+[ext_resource type="PackedScene" uid="uid://bs18qj1lxa5wo" path="res://Overlay/turn_counter.tscn" id="1_8wktq"]
+[ext_resource type="Texture2D" uid="uid://c8qb2oqrmgo0k" path="res://Assets/overlay/overlay_withhealth.png" id="2_ert1v"]
+
+[node name="Overlay" type="Node2D"]
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="TurnCounter" parent="Canvas" instance=ExtResource("1_8wktq")]
+z_index = 3
+position = Vector2(1214, 470)
+scale = Vector2(3, 3)
+
+[node name="Sprite2D" type="Sprite2D" parent="Canvas"]
+position = Vector2(960, 540)
+scale = Vector2(2.99688, 2.99444)
+texture = ExtResource("2_ert1v")
