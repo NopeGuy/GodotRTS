@@ -14,8 +14,6 @@ var is_moving: bool = false  # Track whether the character is moving
 var walkable_tiles
 var path
 
-signal init_comp  
-
 @onready var sprite = get_node("Sprite2D")
 @onready var health_bar = get_node("CanvasLayer/HealthBar")
 
@@ -69,9 +67,6 @@ func MoveMouse():
 	if Input.is_action_just_pressed("LeftClick") and not is_moving:
 		if tile_map and tile_map.has_method("get_selected_tile"):
 			var selected_tile = Vector2i(tile_map.get_selected_tile())
-
-			# Get the list of walkable tiles from the current position
-			walkable_tiles = tile_map.is_tile_walkable(self.current_position, self.Movement)
 
 			# Check if the selected tile is in the list of walkable tiles
 			if selected_tile in walkable_tiles:

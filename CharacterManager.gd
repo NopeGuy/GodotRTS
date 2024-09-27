@@ -34,7 +34,7 @@ func _ready():
 	for player in characters:
 		player.walkable_tiles = tile_map.is_tile_walkable(player.current_position, player.Movement)
 
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.001).timeout
 	
 	if characters.size() > 0:
 		active_player = characters[0]
@@ -70,6 +70,7 @@ func switch_to_next_player(target_tile):
 				return
 		
 	active_player = characters[0]  # The first player is always the active player
+	active_player.walkable_tiles = tile_map.is_tile_walkable(active_player.current_position, active_player.Movement)
 	
 	# Update the turn counter
 	turn_counter.update_turn_order()

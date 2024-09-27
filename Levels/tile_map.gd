@@ -107,11 +107,8 @@ func clear_movement_tiles():
 func show_movement_tiles():
 	if CharacterManager.active_player != null:
 		# Get the movement range and current position of the active player
-		var movement_range = CharacterManager.active_player.Movement
+		var walkable_tiles = CharacterManager.active_player.walkable_tiles
 		var current_position = CharacterManager.active_player.current_position
-		
-		# Get the list of walkable tiles using BFS with pruning
-		var walkable_tiles = is_tile_walkable(current_position, movement_range)
 		
 		# Highlight each walkable tile
 		for tile in walkable_tiles:
