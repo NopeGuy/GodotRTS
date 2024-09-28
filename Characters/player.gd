@@ -7,7 +7,7 @@ var StartPosition: Vector2i
 var HealthPos: Vector2i
 var tile_map
 
-var speed: float = 200.0  # Movement speed
+var speed: float = 150.0  # Movement speed
 var target_position: Vector2 = Vector2()  # Target position for movement
 var current_position: Vector2 = Vector2()  # Target position for movement
 var is_moving: bool = false  # Track whether the character is moving
@@ -23,6 +23,7 @@ func _ready():
 	target_position = global_position # Set the initial target to current position
 	current_position = StartPosition
 	health_bar.init_health(HP, HealthPos)
+	$Sprite2D/AnimationPlayer.play("idle_bl")
 	
 
 func _physics_process(delta):
@@ -82,5 +83,5 @@ func MoveMouse():
 				# Example of HP reduction, you can change this logic as needed
 				HP -= 60
 				if HP <= 0:
-					sprite.set_frame(2)
+					$Sprite2D/AnimationPlayer.play("dead_bl")
 				health_bar.health = HP

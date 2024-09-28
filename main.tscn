@@ -25,6 +25,5 @@ z_index = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
-position_smoothing_speed = 4.0
 
 [node name="Overlay" parent="." instance=ExtResource("4_ixt8n")]

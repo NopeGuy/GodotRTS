@@ -1,8 +1,64 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhdc7l4hnafb0"]
+[gd_scene load_steps=9 format=3 uid="uid://dhdc7l4hnafb0"]
 
 [ext_resource type="Script" path="res://Characters/player.gd" id="1_pkel6"]
-[ext_resource type="Texture2D" uid="uid://3sa4c1m2tsmy" path="res://Assets/characters/men.png" id="2_vree8"]
+[ext_resource type="Texture2D" uid="uid://dtu5e5oocffcr" path="res://Assets/characters/ffta2.png" id="2_461kh"]
 [ext_resource type="PackedScene" uid="uid://siaqnq0ew1xy" path="res://Overlay/health_bar.tscn" id="3_qk4m8"]
+
+[sub_resource type="Animation" id="Animation_d82qh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_gi0jo"]
+resource_name = "dead_bl"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.533333, 0.8, 1.06667, 2.63333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 5, 5]
+}
+
+[sub_resource type="Animation" id="Animation_gw6uq"]
+resource_name = "idle_bl"
+length = 1.67
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rjolp"]
+_data = {
+"RESET": SubResource("Animation_d82qh"),
+"dead_bl": SubResource("Animation_gi0jo"),
+"idle_bl": SubResource("Animation_gw6uq")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d426h"]
 size = Vector2(94.5, 96)
@@ -17,12 +73,17 @@ script = ExtResource("1_pkel6")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(1.28572, -24.2856)
-scale = Vector2(2, 2)
-texture = ExtResource("2_vree8")
-hframes = 12
-vframes = 8
-frame = 52
+position = Vector2(-0.142851, -12.857)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_461kh")
+hframes = 5
+vframes = 5
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_rjolp")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
@@ -34,7 +95,7 @@ shape = SubResource("RectangleShape2D_d426h")
 layer = 0
 
 [node name="HealthBar" parent="CanvasLayer" instance=ExtResource("3_qk4m8")]
-offset_left = 90.0
-offset_top = 67.0
-offset_right = 265.0
-offset_bottom = 183.0
+offset_left = 114.0
+offset_top = 78.0
+offset_right = 300.0
+offset_bottom = 197.0
